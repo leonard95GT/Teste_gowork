@@ -7,6 +7,10 @@ class OfficeSchema extends Schema {
   up () {
     this.create('offices', (table) => {
       table.increments()
+      table.string('address').notNullable()
+      table.string('state').notNullable()
+      table.integer('number_position').notNullable()   
+      table.string('neighborhood').notNullable()   
       table.timestamps()
     })
   }

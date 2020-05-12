@@ -7,6 +7,8 @@ class CoworkingPlanSchema extends Schema {
   up () {
     this.create('coworking_plans', (table) => {
       table.increments()
+      table.string('name').notNullable()
+      table.decimal('value').notNullable()
       table.timestamps()
     })
   }
