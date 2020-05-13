@@ -40,3 +40,9 @@ Route.post('/client', 'ClientController.store')
 Route.post('/client/:id', 'ClientController.search')
 Route.patch('/client/:id', 'ClientController.update')
 Route.delete('/client/:id', 'ClientController.destroy')
+
+//user's
+Route.post('/register', 'UserController.create')
+Route.post('/login', 'SessionController.login')
+
+
