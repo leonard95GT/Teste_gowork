@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import Logo from "../../assets/imgs/LogoGOWORK_header-1.png";
+
+import api from "../../services/api";
 
 import { Form, Container } from "./styles";
 
@@ -10,19 +12,31 @@ class SignUp extends Component {
     username: "",
     email: "",
     password: "",
+    client_id:2,
     error: ""
   };
 
-  handleSignUp = e => {
+  handleSignUp = async e => {
     e.preventDefault();
-    alert("Eu vou te registrar");
+    const { username, email, password, client_id } = this.state;
+    if (!username || !email || !password) {
+      this.setState({ error: "Preencha todos os dados para se cadastrar" });
+    } else {
+      try {
+        await api.post("/register", { username, email, password, client_id });
+        this.props.history.push("/");
+      } catch (err) {
+        console.log(err);
+        this.setState({ error: "Ocorreu um erro ao registrar sua conta. T.T" });
+      }
+    }
   };
 
   render() {
     return (
       <Container>
         <Form onSubmit={this.handleSignUp}>
-          <img src={Logo} alt="Airbnb logo" />
+          <img src={Logo} alt="Coworking logo" />
           {this.state.error && <p>{this.state.error}</p>}
           <input
             type="text"
@@ -48,4 +62,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default withRouter(SignUp);
