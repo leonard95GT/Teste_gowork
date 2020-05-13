@@ -1,92 +1,54 @@
 'use strict'
 
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
+const Client = use('App/Models/Client')
 
-/**
- * Resourceful controller for interacting with clients
- */
 class ClientController {
-  /**
-   * Show a list of all clients.
-   * GET clients
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async index ({ request, response, view }) {
+
+  async index ({ request, response }) {
+    const all = await Client.all()
+
+    return response.status(302).send(all)
   }
 
-  /**
-   * Render a form to be used for creating a new client.
-   * GET clients/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
-  }
-
-  /**
-   * Create/save a new client.
-   * POST clients
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
   async store ({ request, response }) {
+    const data = request.all()
+    const result = await Client.create(data)
+
+    return response.status(201).send(result )
   }
 
-  /**
-   * Display a single client.
-   * GET clients/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async show ({ params, request, response, view }) {
+  async search ({ params, response }) {
+    const data = params.id
+    const result = await Client.find(data)
+
+    return response.status(302).send(result) 
   }
 
-  /**
-   * Render a form to update an existing client.
-   * GET clients/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
-  }
 
-  /**
-   * Update client details.
-   * PUT or PATCH clients/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
   async update ({ params, request, response }) {
+    const data = params.id
+    const result = await Client.find(data)
+
+    result.typeUser = request.input('typeUser')
+    result.name = request.input('name')
+    result.federal_number = request.input('federal_number')
+    result.office_id = request.input('office_id')
+    result.coworking_plan_id = request.input('coworking_plan_id')
+    result.active = request.input('active')
+
+    result.save()
+
+    return response.status(202).send('updated')
   }
 
-  /**
-   * Delete a client with id.
-   * DELETE clients/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
   async destroy ({ params, request, response }) {
+    const data = params.id
+    const result = await Client.find(data)
+
+    result.delete()
+
+    return response.status(202).send('deleted')
+    
   }
 }
 

@@ -1,92 +1,53 @@
 'use strict'
 
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
+const CoworkingPlan = use('App/Models/CoworkingPlan')
 
-/**
- * Resourceful controller for interacting with coworkingplans
- */
 class CoworkingPlanController {
-  /**
-   * Show a list of all coworkingplans.
-   * GET coworkingplans
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async index ({ request, response, view }) {
+
+  async index ({ response }) {
+    const all = await CoworkingPlan.all();
+
+    return response.status(200).send(all)
   }
 
-  /**
-   * Render a form to be used for creating a new coworkingplan.
-   * GET coworkingplans/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
-  }
-
-  /**
-   * Create/save a new coworkingplan.
-   * POST coworkingplans
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
   async store ({ request, response }) {
+    const data = request.all()
+    const result = await CoworkingPlan.create(data)
+
+    return response.status(201).send(result)
   }
 
-  /**
-   * Display a single coworkingplan.
-   * GET coworkingplans/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async show ({ params, request, response, view }) {
+
+  async search ({ params, response }) {
+    const data = params.id
+    const result = await CoworkingPlan.find(data)
+
+    return response.status(200).send(result)
   }
 
-  /**
-   * Render a form to update an existing coworkingplan.
-   * GET coworkingplans/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
-  }
 
-  /**
-   * Update coworkingplan details.
-   * PUT or PATCH coworkingplans/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
   async update ({ params, request, response }) {
+    const data = params.id
+    const result = await CoworkingPlan.find(data)
+
+    result.name = request.input('name')
+    result.value = request.input('value')
+
+    await result.save()
+
+    return response.status(200).send('updated')
+
   }
 
-  /**
-   * Delete a coworkingplan with id.
-   * DELETE coworkingplans/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async destroy ({ params, request, response }) {
+
+  async destroy ({ params, response }) {
+    const data = params.id
+    const result = await CoworkingPlan.find(data)
+
+    result.delete()
+
+    return response.status(200).send('deleted')
+
   }
 }
 
