@@ -20,4 +20,8 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
+//office's
+Route.get ('/office', 'OfficeController.index')
+Route.post('/office', 'OfficeController.store')
+Route.post('/office/:id', 'OfficeController.search')
 
