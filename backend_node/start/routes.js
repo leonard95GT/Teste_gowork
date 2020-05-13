@@ -24,4 +24,12 @@ Route.get('/', () => {
 Route.get ('/office', 'OfficeController.index')
 Route.post('/office', 'OfficeController.store')
 Route.post('/office/:id', 'OfficeController.search')
+Route.patch('/office/:id', 'OfficeController.update')
+Route.delete('/office/:id', 'OfficeController.destroy')
 
+//Coworking plan's
+Route.get ('/coworking-plan', 'CoworkingPlanController.index')
+Route.post('/coworking-plan', 'CoworkingPlanController.store')
+Route.post('/coworking-plan/:id', 'CoworkingPlanController.search')
+Route.patch('/coworking-plan/:id', 'CoworkingPlanController.update')
+Route.delete('/coworking-plan/:id', 'CoworkingPlanController.destroy')
