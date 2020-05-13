@@ -33,3 +33,10 @@ Route.post('/coworking-plan', 'CoworkingPlanController.store')
 Route.post('/coworking-plan/:id', 'CoworkingPlanController.search')
 Route.patch('/coworking-plan/:id', 'CoworkingPlanController.update')
 Route.delete('/coworking-plan/:id', 'CoworkingPlanController.destroy')
+
+//office's
+Route.get ('/client', 'ClientController.index')
+Route.post('/client', 'ClientController.store')
+Route.post('/client/:id', 'ClientController.search')
+Route.patch('/client/:id', 'ClientController.update')
+Route.delete('/client/:id', 'ClientController.destroy')

@@ -4,7 +4,7 @@ const CoworkingPlan = use('App/Models/CoworkingPlan')
 
 class CoworkingPlanController {
 
-  async index ({ request, response }) {
+  async index ({ response }) {
     const all = await CoworkingPlan.all();
 
     return response.status(200).send(all)
@@ -18,7 +18,7 @@ class CoworkingPlanController {
   }
 
 
-  async search ({ params, request, response }) {
+  async search ({ params, response }) {
     const data = params.id
     const result = await CoworkingPlan.find(data)
 
@@ -40,7 +40,7 @@ class CoworkingPlanController {
   }
 
 
-  async destroy ({ params, request, response }) {
+  async destroy ({ params, response }) {
     const data = params.id
     const result = await CoworkingPlan.find(data)
 
