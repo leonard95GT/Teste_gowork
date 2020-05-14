@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import SignUp from "./views/Signup/Index";
 import Login from "./views/Login/Index";
+import AppAuth from "./views/App/Index";
 
 import { isAuthenticated } from "./services/auth";
 
@@ -23,7 +24,7 @@ const Routes = () => (
     <Switch>
       <Route exact path="/" component={Login} />
       <Route path="/signup" component={SignUp} />
-      <PrivateRoute path="/app" component={() => <h1>App</h1>} />
+      <PrivateRoute path="/app" component={AppAuth} />
       <Route path="*" component={() => <h1>Page not found</h1>} />
     </Switch>
   </BrowserRouter>
