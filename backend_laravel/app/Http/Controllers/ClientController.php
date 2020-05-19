@@ -61,6 +61,6 @@ class ClientController extends Controller
         $result = Client::find($request->id);
         $result->delete();
 
-        return $result;
+        return 'deleted';
     }
 }
