@@ -29,7 +29,7 @@ class CoworkingPlanController extends Controller
     }
 
 
-    public function show(Coworking_plan $coworking_plan)
+    public function search(Request $request)
     {
         $result = Coworking_plan::find($request->id);
         return $result;
