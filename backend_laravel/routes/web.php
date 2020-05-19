@@ -21,4 +21,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/office', 'OfficeController@index')->name('getAllOffice');
+//Office's
+Route::get   ('/office', 'OfficeController@index')      ->name('getAllOffice');
+Route::post  ('/office', 'OfficeController@store')      ->name('createOffice');
+Route::post  ('/officesearch', 'OfficeController@search')->name('seacrhOffice');
+Route::patch ('/office', 'OfficeController@update')      ->name('updateOffice');
+Route::delete('/office', 'OfficeController@destroy')      ->name('deleteOffice');
+

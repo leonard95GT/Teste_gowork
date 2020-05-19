@@ -7,79 +7,53 @@ use Illuminate\Http\Request;
 
 class CoworkingPlanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $data = Coworking_plan::all();
+        return response()->json($data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        $cp = new Coworking_plan;
+
+        $cp->name = $request->name;
+        $cp->value = $request->value;
+
+        $cp->save();
+
+        return 'cp created';
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Coworking_plan  $coworking_plan
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Coworking_plan $coworking_plan)
     {
-        //
+        $result = Coworking_plan::find($request->id);
+        return $result;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Coworking_plan  $coworking_plan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Coworking_plan $coworking_plan)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Coworking_plan  $coworking_plan
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Coworking_plan $coworking_plan)
     {
-        //
+        $cp = Coworking_plan::find($request->id);
+
+        $cp->name = $request->name;
+        $cp->value = $request->value;
+
+        $cp->save();
+
+        return $cp;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Coworking_plan  $coworking_plan
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Coworking_plan $coworking_plan)
     {
-        //
+        $cp = Coworking_plan::find($request->id);
+        $cp->delete();
+
+        return $cp;
     }
 }
