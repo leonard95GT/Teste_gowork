@@ -49,11 +49,11 @@ class CoworkingPlanController extends Controller
     }
 
 
-    public function destroy(Coworking_plan $coworking_plan)
+    public function destroy(Request $request)
     {
         $cp = Coworking_plan::find($request->id);
         $cp->delete();
 
-        return $cp;
+        return 'deleted';
     }
 }
