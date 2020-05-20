@@ -16,6 +16,7 @@ class OfficeController extends Controller
 
 
 
+
     public function store(Request $request)
     {
         $office = new Office;
@@ -35,11 +36,12 @@ class OfficeController extends Controller
     {
         $result = Office::find($request->id);
         return $result;
-    }
+
 
 
     public function update(Request $request, Office $office)
     {
+
         $result = Office::find($request->id);
 
         $result->address = $request->address;
@@ -59,5 +61,6 @@ class OfficeController extends Controller
         $result->delete();
 
         return $result;
+
     }
 }

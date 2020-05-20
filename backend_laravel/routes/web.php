@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 //Office's
 Route::get   ('/office', 'OfficeController@index')      ->name('getAllOffice');
 Route::post  ('/office', 'OfficeController@store')      ->name('createOffice');
@@ -41,3 +42,4 @@ Route::post  ('/client', 'ClientController@store')                  ->name('crea
 Route::post  ('/client-search', 'CoworkingPlanController@search')   ->name('seacrhClient');
 Route::patch ('/client', 'ClientController@update')                 ->name('updateClient');
 Route::delete('/client', 'ClientController@destroy')                ->name('deleteClient');
+

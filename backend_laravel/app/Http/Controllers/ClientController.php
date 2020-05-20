@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class ClientController extends Controller
 {
 
+
     public function index()
     {
         $data = Client::all();
@@ -63,5 +64,6 @@ class ClientController extends Controller
         $result->delete();
 
         return 'deleted';
+
     }
 }
