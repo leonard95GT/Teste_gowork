@@ -3,7 +3,41 @@ import React from 'react'
 function Client() {
     return (
         <div>
-            Olá
+            <div>
+                <h2>Clientes</h2>
+            </div>
+
+            <div>
+                <form>
+                    <label>Nome:<br/>
+                    <input type="text" /></label>
+                    <br/><br/>
+                    
+                    <label>Nome:<br/>
+                    <input type="text" /></label>
+                    <br/><br/>
+
+                    <label>Nome:<br/>
+                    <input type="text" /></label>
+                    <br/><br/>
+
+                    <label>Nome:<br/>
+                    <input type="text" /></label>
+                    <br/><br/>
+
+                    <label>Nome:<br/>
+                    <input type="text" /></label>
+                    <br/><br/>
+
+                    <label>Nome:<br/>
+                    <input type="text" /></label>
+                    <br/><br/>
+
+                    <br/>
+                    <button>Salvar</button>
+                    <button>Cancelar</button>
+                </form>
+            </div>
         </div>
     )
 }

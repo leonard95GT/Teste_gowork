@@ -21,7 +21,6 @@ function Index(props) {
                 client:p3.data
             })
         });
-
     }, [data])
 
    function handleEdit(data, type) {
