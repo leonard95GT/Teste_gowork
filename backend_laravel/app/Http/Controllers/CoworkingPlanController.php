@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class CoworkingPlanController extends Controller
 {
 
+
     public function index()
     {
         $data = Coworking_plan::all();
@@ -55,5 +56,6 @@ class CoworkingPlanController extends Controller
         $cp->delete();
 
         return 'deleted';
+
     }
 }
