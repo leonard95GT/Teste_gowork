@@ -21,4 +21,25 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/office', 'OfficeController@index')->name('getAllOffice');
+
+//Office's
+Route::get   ('/office', 'OfficeController@index')      ->name('getAllOffice');
+Route::post  ('/office', 'OfficeController@store')      ->name('createOffice');
+Route::post  ('/officesearch', 'OfficeController@search')->name('seacrhOffice');
+Route::patch ('/office', 'OfficeController@update')      ->name('updateOffice');
+Route::delete('/office', 'OfficeController@destroy')      ->name('deleteOffice');
+
+//Plans
+Route::get   ('/coworking-plan', 'CoworkingPlanController@index')      ->name('getAllCP');
+Route::post  ('/coworking-plan', 'CoworkingPlanController@store')      ->name('createCP');
+Route::post  ('/cp-search', 'CoworkingPlanController@search')          ->name('seacrhCP');
+Route::patch ('/coworking-plan', 'CoworkingPlanController@update')     ->name('updateCP');
+Route::delete('/coworking-plan', 'CoworkingPlanController@destroy')    ->name('deleteCP');
+
+//Plans
+Route::get   ('/client', 'ClientController@index')                  ->name('getAllClient');
+Route::post  ('/client', 'ClientController@store')                  ->name('createClient');
+Route::post  ('/client-search', 'CoworkingPlanController@search')   ->name('seacrhClient');
+Route::patch ('/client', 'ClientController@update')                 ->name('updateClient');
+Route::delete('/client', 'ClientController@destroy')                ->name('deleteClient');
+

@@ -7,79 +7,63 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function index()
     {
-        //
+        $data = Client::all();
+        return response()->json($data);    
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $client = new Client;
+
+        $client->typeUser = $request->typeUser;
+        $client->name = $request->name;
+        $client->federal_number = $request->federal_number;
+        $client->office_id = $request->office_id;
+        $client->coworking_plan_id = $request->coworking_plan_id;
+        $client->active = $request->active;
+
+        $client->save();
+
+        return 'client created';
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Client $client)
+
+    public function show(Request $request)
     {
-        //
+        $result = Client::find($request->id);
+        return $result;
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Client $client)
+
+    public function update(Request $request)
     {
-        //
+        $client = Client::find($request->id);
+
+        $client->typeUser = $request->typeUser;
+        $client->name = $request->name;
+        $client->federal_number = $request->federal_number;
+        $client->office_id = $request->office_id;
+        $client->coworking_plan_id = $request->coworking_plan_id;
+        $client->active = $request->active;
+
+        $client->save();
+
+        return $client;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Client $client)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Client $client)
+    public function destroy(Request $request)
     {
-        //
+        $result = Client::find($request->id);
+        $result->delete();
+
+        return 'deleted';
+
     }
 }
