@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import api from '../../services/api'
+import Logo from "../../assets/imgs/LogoGOWORK_header-1.png";
 
 
 
-function Index() {
+function Index(props) {
     const [data, setData] = useState({
         coworking_plan:[],
         office:[],
@@ -12,14 +13,8 @@ function Index() {
 
 
 
-    useEffect(() => {
-        // api.get('/office').then(res=>{
-        //     setData({ office:res.data})
-        //     console.log(data.office)
-        // })
-      
+    useEffect(() => {   
         Promise.all([api.get('/office'), api.get('/coworking-plan'), api.get('/client')]).then(function ([p1, p2, p3]) {
-            console.log(p1.data)
             setData({
                 coworking_plan:p2.data,
                 office:p1.data,
@@ -27,15 +22,26 @@ function Index() {
             })
         });
 
-    }, [data.updateNow])
+    }, [data])
 
-   
+   function handleEdit() {
+       alert('Olá')
+   }
 
+   function handleDelete(data, type){
+        if(type === 1){
+            api.delete('/office/'+data).then(res=>{console.log(res)})
+        }else if(type === 2){
+            api.delete('/coworking-plan/'+data).then(res=>{console.log(res)})
+        }else if(type === 3){
+            api.delete('/client/'+data).then(res=>{console.log(res)})
+        }
+   }
 
     
     return (
     <>
-    <h2>Gowork</h2>
+    <h2> <img src={Logo} /> </h2>
         <div>
             <h3>Escritórios</h3>
             <table>
@@ -60,7 +66,7 @@ function Index() {
                         <td> {d.state} </td>
                         <td> {d.address} </td>
                         <td> <button>X</button> </td>
-                        <td> <button>X</button> </td>
+                        <td> <button onClick={() => handleDelete(d.id, 1) } >X</button> </td>
 
                     </tr>
 
@@ -89,7 +95,7 @@ function Index() {
                         <td> {d.name} </td>
                         <td> {d.value} </td>
                         <td> <button>X</button> </td>
-                        <td> <button>X</button> </td>
+                        <td> <button onClick={() => handleDelete(d.id, 2) }>X</button> </td>
                     </tr>
 
                     ))}
@@ -123,8 +129,8 @@ function Index() {
                         <td> {d.office_id} </td>
                         <td> {d.coworking_plan_id} </td>
                         <td> {d.active} </td>
-                        <td> <button>X</button> </td>
-                        <td> <button>X</button> </td>
+                        <td> <button onClick={() => handleEdit()} >X</button> </td>
+                        <td> <button onClick={() => handleDelete(d.id, 3) } >X</button> </td>
 
                     </tr>
 

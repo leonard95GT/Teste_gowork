@@ -2,9 +2,9 @@ import React from 'react'
 
 function Office() {
     return (
-        <div>
-            
-        </div>
+        <>
+          Arriba
+        </>
     )
 }
 
