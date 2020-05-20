@@ -11,7 +11,8 @@ class ClientController extends Controller
     public function index()
     {
         $data = Client::all();
-        return response()->json($data);    }
+        return response()->json($data);    
+    }
 
 
     public function store(Request $request)
