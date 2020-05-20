@@ -24,8 +24,16 @@ function Index(props) {
 
     }, [data])
 
-   function handleEdit() {
-       alert('Olá')
+   function handleEdit(data, type) {
+    if(type === 1){
+        props.history.push('/editOffice', data)
+    }else if(type === 2){
+        props.history.push('/editCoworking-plan', data)
+    }else if(type === 3){
+        props.history.push('/editClient', data)    
+    }
+
+       console.log(props.history.push('/editOffice', data))
    }
 
    function handleDelete(data, type){
@@ -65,7 +73,7 @@ function Index(props) {
                         <td> {d.number_position} </td>
                         <td> {d.state} </td>
                         <td> {d.address} </td>
-                        <td> <button>X</button> </td>
+                        <td> <button onClick={() => handleEdit(d.id, 1)} >X</button> </td>
                         <td> <button onClick={() => handleDelete(d.id, 1) } >X</button> </td>
 
                     </tr>
@@ -94,7 +102,7 @@ function Index(props) {
                         <td> {d.id} </td>
                         <td> {d.name} </td>
                         <td> {d.value} </td>
-                        <td> <button>X</button> </td>
+                        <td> <button onClick={() => handleEdit(d.id, 1)} >X</button> </td>
                         <td> <button onClick={() => handleDelete(d.id, 2) }>X</button> </td>
                     </tr>
 
@@ -129,9 +137,8 @@ function Index(props) {
                         <td> {d.office_id} </td>
                         <td> {d.coworking_plan_id} </td>
                         <td> {d.active} </td>
-                        <td> <button onClick={() => handleEdit()} >X</button> </td>
+                        <td> <button onClick={() => handleEdit(d.id, 1)} >X</button> </td>
                         <td> <button onClick={() => handleDelete(d.id, 3) } >X</button> </td>
-
                     </tr>
 
                     ))}
