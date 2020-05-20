@@ -7,7 +7,7 @@ class ClientController {
   async index ({ request, response }) {
     const all = await Client.all()
 
-    return response.status(302).send(all)
+    return response.status(200).send(all)
   }
 
   async store ({ request, response }) {
