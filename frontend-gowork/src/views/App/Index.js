@@ -46,7 +46,7 @@ function Index(props) {
     
     return (
     <>
-    <h2> <img src={Logo} /> </h2>
+    <h2> <img src={Logo} alt="Logo-cowork" /> </h2>
         <div>
             <div>
                 <h3>Escritórios</h3>

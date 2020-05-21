@@ -3,7 +3,6 @@ import api from '../../services/api'
 
 function Office(props) {
     let data = (props.location.state)
-    const [nameOffice, setNameOffice] = useState('')
     const [neigthborhoodOffice, setNeigthborhoodOffice] = useState('')
     const [stateOffice, setStateOffice] = useState('')
     const [addressOffice, setAddressOffice] = useState('')
@@ -34,7 +33,7 @@ function Office(props) {
                 address:addressOffice
             }
         })
-    }, [nameOffice, neigthborhoodOffice, stateOffice, numberPositionOffice, addressOffice])
+    }, [neigthborhoodOffice, stateOffice, numberPositionOffice, addressOffice])
 
     function saveDataOffice(){
         api.post('/office', datas.dataFull).then(res =>console.log(res.status))
