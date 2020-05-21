@@ -54,7 +54,7 @@ function Index(props) {
 
             <div>
                 <button onClick={() => props.history.push('/editOffice')}>Add Cliente</button>
-                <button onClick={() => props.history.push('/editOffice')}>Add Plano de Coworking</button>
+                <button onClick={() => props.history.push('/editCoworking-plan')}>Add Plano de Coworking</button>
                 <button onClick={() => props.history.push('/editOffice')}>Add Escritórios</button>
                 
             </div>
