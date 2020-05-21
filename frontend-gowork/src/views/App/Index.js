@@ -49,16 +49,15 @@ function Index(props) {
     <h2> <img src={Logo} alt="Logo-cowork" /> </h2>
         <div>
             <div>
-                <h3>Escritórios</h3>
-            </div>
-
-            <div>
-                <button onClick={() => props.history.push('/editOffice')}>Add Cliente</button>
+                <button onClick={() => props.history.push('/editClient')}>Add Cliente</button>
                 <button onClick={() => props.history.push('/editCoworking-plan')}>Add Plano de Coworking</button>
                 <button onClick={() => props.history.push('/editOffice')}>Add Escritórios</button>
                 
             </div>
             <br/><br/>
+            <div>
+                <h3>Escritórios</h3>
+            </div>
             <table>
                 <thead>
                     <tr>
