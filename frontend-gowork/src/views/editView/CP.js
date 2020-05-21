@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CP() {
+function CP(props) {
     return (
     <div>
         <div>
@@ -19,7 +19,7 @@ function CP() {
                 
                 <br/>
                 <button>Salvar</button>
-                <button>Cancelar</button>
+                <button onClick={() => props.history.push('/app')}>Cancelar</button>
             </form>
         </div>
     </div>

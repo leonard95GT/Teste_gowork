@@ -1,6 +1,7 @@
 import React from 'react'
 
-function Client() {
+function Client(props) {
+    
     return (
         <div>
             <div>
@@ -35,7 +36,7 @@ function Client() {
 
                     <br/>
                     <button>Salvar</button>
-                    <button>Cancelar</button>
+                    <button onClick={() => props.history.push('/app')}>Cancelar</button>
                 </form>
             </div>
         </div>

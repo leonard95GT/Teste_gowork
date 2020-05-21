@@ -31,8 +31,6 @@ function Index(props) {
     }else if(type === 3){
         props.history.push('/editClient', data)    
     }
-
-       console.log(props.history.push('/editOffice', data))
    }
 
    function handleDelete(data, type){
@@ -50,7 +48,17 @@ function Index(props) {
     <>
     <h2> <img src={Logo} /> </h2>
         <div>
-            <h3>Escritórios</h3>
+            <div>
+                <h3>Escritórios</h3>
+            </div>
+
+            <div>
+                <button onClick={() => props.history.push('/editOffice')}>Add Cliente</button>
+                <button onClick={() => props.history.push('/editOffice')}>Add Plano de Coworking</button>
+                <button onClick={() => props.history.push('/editOffice')}>Add Escritórios</button>
+                
+            </div>
+            <br/><br/>
             <table>
                 <thead>
                     <tr>
@@ -61,7 +69,6 @@ function Index(props) {
                         <th>Endereço</th>
                         <th>Editar</th>
                         <th>Excluir</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
@@ -72,13 +79,10 @@ function Index(props) {
                         <td> {d.number_position} </td>
                         <td> {d.state} </td>
                         <td> {d.address} </td>
-                        <td> <button onClick={() => handleEdit(d.id, 1)} >X</button> </td>
+                        <td> <button onClick={() => handleEdit(d, 1)} >X</button> </td>
                         <td> <button onClick={() => handleDelete(d.id, 1) } >X</button> </td>
-
                     </tr>
-
                     ))}
-
                 </tbody>
             </table>     
         </div>
@@ -101,7 +105,7 @@ function Index(props) {
                         <td> {d.id} </td>
                         <td> {d.name} </td>
                         <td> {d.value} </td>
-                        <td> <button onClick={() => handleEdit(d.id, 1)} >X</button> </td>
+                        <td> <button onClick={() => handleEdit(d, 2)} >X</button> </td>
                         <td> <button onClick={() => handleDelete(d.id, 2) }>X</button> </td>
                     </tr>
 
@@ -136,7 +140,7 @@ function Index(props) {
                         <td> {d.office_id} </td>
                         <td> {d.coworking_plan_id} </td>
                         <td> {d.active} </td>
-                        <td> <button onClick={() => handleEdit(d.id, 1)} >X</button> </td>
+                        <td> <button onClick={() => handleEdit(d, 3)} >X</button> </td>
                         <td> <button onClick={() => handleDelete(d.id, 3) } >X</button> </td>
                     </tr>
 
