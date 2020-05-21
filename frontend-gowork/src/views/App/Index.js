@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import api from '../../services/api'
+import Logo from "../../assets/imgs/LogoGOWORK_header-1.png";
 
 
 
-function Index() {
+function Index(props) {
     const [data, setData] = useState({
         coworking_plan:[],
         office:[],
@@ -12,32 +13,51 @@ function Index() {
 
 
 
-    useEffect(() => {
-        // api.get('/office').then(res=>{
-        //     setData({ office:res.data})
-        //     console.log(data.office)
-        // })
-      
+    useEffect(() => {   
         Promise.all([api.get('/office'), api.get('/coworking-plan'), api.get('/client')]).then(function ([p1, p2, p3]) {
-            console.log(p1.data)
             setData({
                 coworking_plan:p2.data,
                 office:p1.data,
                 client:p3.data
             })
         });
+    }, [data])
 
-    }, [data.updateNow])
+   function handleEdit(data, type) {
+    if(type === 1){
+        props.history.push('/editOffice', data)
+    }else if(type === 2){
+        props.history.push('/editCoworking-plan', data)
+    }else if(type === 3){
+        props.history.push('/editClient', data)    
+    }
+   }
 
-   
-
+   function handleDelete(data, type){
+        if(type === 1){
+            api.delete('/office/'+data).then(res=>{console.log(res)})
+        }else if(type === 2){
+            api.delete('/coworking-plan/'+data).then(res=>{console.log(res)})
+        }else if(type === 3){
+            api.delete('/client/'+data).then(res=>{console.log(res)})
+        }
+   }
 
     
     return (
     <>
-    <h2>Gowork</h2>
+    <h2> <img src={Logo} alt="Logo-cowork" /> </h2>
         <div>
-            <h3>Escritórios</h3>
+            <div>
+                <button onClick={() => props.history.push('/editClient')}>Add Cliente</button>
+                <button onClick={() => props.history.push('/editCoworking-plan')}>Add Plano de Coworking</button>
+                <button onClick={() => props.history.push('/editOffice')}>Add Escritórios</button>
+                
+            </div>
+            <br/><br/>
+            <div>
+                <h3>Escritórios</h3>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -48,7 +68,6 @@ function Index() {
                         <th>Endereço</th>
                         <th>Editar</th>
                         <th>Excluir</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
@@ -59,13 +78,10 @@ function Index() {
                         <td> {d.number_position} </td>
                         <td> {d.state} </td>
                         <td> {d.address} </td>
-                        <td> <button>X</button> </td>
-                        <td> <button>X</button> </td>
-
+                        <td> <button onClick={() => handleEdit(d, 1)} >X</button> </td>
+                        <td> <button onClick={() => handleDelete(d.id, 1) } >X</button> </td>
                     </tr>
-
                     ))}
-
                 </tbody>
             </table>     
         </div>
@@ -88,8 +104,8 @@ function Index() {
                         <td> {d.id} </td>
                         <td> {d.name} </td>
                         <td> {d.value} </td>
-                        <td> <button>X</button> </td>
-                        <td> <button>X</button> </td>
+                        <td> <button onClick={() => handleEdit(d, 2)} >X</button> </td>
+                        <td> <button onClick={() => handleDelete(d.id, 2) }>X</button> </td>
                     </tr>
 
                     ))}
@@ -123,9 +139,8 @@ function Index() {
                         <td> {d.office_id} </td>
                         <td> {d.coworking_plan_id} </td>
                         <td> {d.active} </td>
-                        <td> <button>X</button> </td>
-                        <td> <button>X</button> </td>
-
+                        <td> <button onClick={() => handleEdit(d, 3)} >X</button> </td>
+                        <td> <button onClick={() => handleDelete(d.id, 3) } >X</button> </td>
                     </tr>
 
                     ))}
