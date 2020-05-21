@@ -6,7 +6,6 @@ function Client(props) {
     const [nameClient, setNameClient] = useState('')
     const [typeUserClient, settypeUserClient] = useState(0)
     const [federalNumber, setFederalNumber] = useState(0)
-    const [activeClient, setActiveClient] = useState(0)
     const [officeId, setOfficeId] = useState(0)
     const [coworkingPlanId, setCoworkingPlanId] = useState(0)
 
@@ -36,10 +35,9 @@ function Client(props) {
                 federal_number:federalNumber,
                 office_id:officeId,
                 coworking_plan_id:coworkingPlanId,
-                active:activeClient
             }
         })
-    }, [nameClient, typeUserClient, federalNumber, officeId, coworkingPlanId, activeClient])
+    }, [nameClient, typeUserClient, federalNumber, officeId, coworkingPlanId])
 
     function saveData(){
         api.post('/client', datas.dataFull).then(res =>console.log(res.status))
