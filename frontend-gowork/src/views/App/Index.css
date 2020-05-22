@@ -1,0 +1,39 @@
+body{
+    margin-top: 0px;}
+
+#head{
+    height: 168px;
+    background-image: url('../../assets/imgs/city.jpg');
+}
+
+#logo{
+    margin-top: 20px;
+}
+
+#divButton{
+    height: 50px;
+    background-color: #1d1d1d;
+    margin-bottom: 40px;
+}
+
+.button{
+    height: 50px;
+    background-color: #1d1d1d;
+    border-style: none;
+    color: white;
+    margin-right: 35px;
+}
+
+.pt{
+    margin-bottom: 10px;
+}
+
+#divCenter{
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+.add{
+    width: 25px;
+    padding-bottom: 4px;
+}
