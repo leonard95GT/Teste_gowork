@@ -5,8 +5,9 @@ import ImgAdd from "../../assets/imgs/adicionar.svg";
 import './Index.css'
 import { Table } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ModalOffice from '../../components/ModalClient'
+import ModalClient from '../../components/ModalClient'
 import ModalCP from '../../components/ModalCP'
+import ModalOffice from '../../components/ModalOffice'
 
 
 
@@ -21,6 +22,7 @@ function Index(props) {
 
     const [modalShowClient, setModalShowClient] = useState(false);
     const [modalShowCP, setModalShowCP] = useState(false);
+    const [modalShowOffice, setModalShowOffice] = useState(false);
 
     useEffect(() => {   
         Promise.all([api.get('/office'), api.get('/coworking-plan'), api.get('/client')]).then(function ([p1, p2, p3]) {
@@ -73,7 +75,7 @@ function Index(props) {
 
                     <button className="button" onClick={() => setModalShowClient(true)} > <img className="add" src={ImgAdd} />  Cliente</button>
                     <button className="button" onClick={() => setModalShowCP(true)}>      <img className="add" src={ImgAdd} /> Plano de Coworking</button>
-                    <button className="button" onClick={() => props.history.push('/editOffice')}><img className="add" src={ImgAdd} /> Escritórios</button>
+                    <button className="button" onClick={() => setModalShowOffice(true)}><img className="add" src={ImgAdd} /> Escritórios</button>
 
                 </div>
             </div>
@@ -185,8 +187,9 @@ function Index(props) {
             </div>
          
 
-            <ModalOffice typeOpen={typeOpen} show={modalShowClient} onHide={() => setModalShowClient(false)}/>
+            <ModalClient typeOpen={typeOpen} show={modalShowClient} onHide={() => setModalShowClient(false)}/>
             <ModalCP typeOpen={typeOpen} show={modalShowCP} onHide={() => setModalShowCP(false)}/>
+            <ModalOffice typeOpen={typeOpen} show={modalShowOffice} onHide={() => setModalShowOffice(false)}/>
 
 
     </div>    

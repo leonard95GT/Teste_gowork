@@ -28,10 +28,56 @@ function ModalOffice(props) {
     }, [neigthborhoodOffice, stateOffice, numberPositionOffice, addressOffice])
 
 
+    function saveData(){
+        api.post('/office', datas.dataFull).then(res =>console.log(res.status))
+        setNeigthborhoodOffice('')
+        setStateOffice('')
+        setAddressOffice('')
+        setNumberPositionOffice(0)
+        props.onHide()
+    }
+
+
     return (
-        <div>
-            
-        </div>
+        <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+        {props.typeOpen === 1? "Adicionar Escritório": "Editar Escritório"}
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+          <Row>
+              <Col>
+                <label>Bairro:<br/>
+                <input value={datas.dataFull.neighborhood} type="text" onChange={(event) => setNeigthborhoodOffice(event.target.value)} /></label>
+              </Col>
+              <Col>
+                <label>Estado:<br/>
+                <input value={datas.dataFull.state} type="text" onChange={(event) => setStateOffice(event.target.value)} /></label>
+              </Col>
+          </Row>
+          <Row>
+              <Col>
+                <label>Posições no coworking:<br/>
+                <input value={datas.dataFull.number_position} type="number" onChange={(event) => setNumberPositionOffice(event.target.value)} /></label>
+              </Col>
+              <Col>
+                <label>Enderço:<br/>
+                <input value={datas.dataFull.address} type="text" onChange={(event) => setAddressOffice(event.target.value)} /></label>
+              </Col>
+          </Row>
+
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={() => saveData()}>Salvar</Button>
+        <Button onClick={props.onHide}>Cancelar</Button>
+      </Modal.Footer>
+    </Modal>
     )
 }
 
