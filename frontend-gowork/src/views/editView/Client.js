@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import api from '../../services/api'
 
+
 function Client(props) {
     let data = (props.location.state)
     const [nameClient, setNameClient] = useState('')
