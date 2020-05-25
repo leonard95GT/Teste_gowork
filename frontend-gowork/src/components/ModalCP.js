@@ -5,7 +5,7 @@ import api from '../services/api'
 function ModalCP(props) {
     //let data = (props.location.state)
     const [nameCP, setNameCP] = useState('')
-    const [valueCP, setValueCP] = useState(0)
+    const [valueCP, setValueCP] = useState()
     
     const [up, setUp]=useState(0)
 

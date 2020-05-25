@@ -6,7 +6,7 @@ function ModalClient(props) {
 
   const [nameClient, setNameClient] = useState('')
   const [typeUserClient, settypeUserClient] = useState('cnpj')
-  const [federalNumber, setFederalNumber] = useState(0)
+  const [federalNumber, setFederalNumber] = useState()
   const [officeId, setOfficeId] = useState(0)
   const [coworkingPlanId, setCoworkingPlanId] = useState(0)
 
@@ -23,6 +23,9 @@ function ModalClient(props) {
 
 
   function saveData(){
+    if(nameClient === ''){
+      alert('Preencha todos os campos para continuar')
+    }
 
     if(props.dataEdit){
       api.patch('/client/'+props.dataEdit.id, {
@@ -98,7 +101,7 @@ function ModalClient(props) {
       </Modal.Header>
       <Modal.Body>
         <Row>
-          <Col>
+          <Col sm={4}>
             <label>Nome:<br/>
             <input value={nameClient} type="text" onChange={(e) => setNameClient(e.target.value)} /></label>
           </Col>
@@ -111,13 +114,13 @@ function ModalClient(props) {
             </label>
 
           </Col>
-          <Col>
-            <label>Número de Inscrição (CNPJ / CPF):<br/>
-            <input value={federalNumber} type="text" onChange={(e) => setFederalNumber(e.target.value)} /></label>
+          <Col sm={4}>
+            <label>CNPJ / CPF:<br/>
+            <input value={federalNumber} type="number" onChange={(e) => setFederalNumber(e.target.value)} /></label>
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col sm={4}>
             <label>Escritório:<br/>
               <select value={officeId} onChange={(e) => setOfficeId(e.target.value)}>
                 {Office.data.map((d, i) => (
@@ -129,7 +132,7 @@ function ModalClient(props) {
 
           </Col>
 
-          <Col>
+          <Col sm={4}>
             <label>Plano de Coworking:<br/>
               <select value={coworkingPlanId} onChange={(e) => setCoworkingPlanId(e.target.value)}>
                 {CoworkingPlan.data.map((d, i) => (
