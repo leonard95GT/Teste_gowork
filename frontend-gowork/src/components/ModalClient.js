@@ -47,8 +47,8 @@ function ModalClient(props) {
     setFederalNumber('')
     setOfficeId(0)
     setCoworkingPlanId(0)
-    setUp(0)
-    setUpTwo(0)    
+    setUpTwo(0)
+    console.log(nameClient)  
     props.onHide()
   }
 
@@ -71,6 +71,7 @@ function ModalClient(props) {
     }
 
     if(props.dataEdit){
+      console.log(props.dataEdit)
       if(upTwo === 0){
         setNameClient(props.dataEdit.name)
         setFederalNumber(props.dataEdit.federal_number)

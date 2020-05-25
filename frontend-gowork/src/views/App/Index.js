@@ -20,7 +20,6 @@ function Index(props) {
     const [modalShowClient, setModalShowClient] = useState(false);
     const [modalShowCP, setModalShowCP] = useState(false);
     const [modalShowOffice, setModalShowOffice] = useState(false);
-    const [edit,  setEdit] = useState(0)
     const [dataEdit, setDataEdit] = useState({
         data:''
     })
@@ -39,7 +38,6 @@ function Index(props) {
         setDataEdit({
             data:data
         })
-        setEdit(1)
         setTypeOpen(0)
 
         if(type === 3){
@@ -62,8 +60,11 @@ function Index(props) {
    }
 
    function handleCreate(type){
-        setEdit(0)
         setTypeOpen(1)
+
+        setDataEdit({
+            data:''
+        })
 
         if(type === 3){
             setModalShowClient(true)
@@ -196,9 +197,9 @@ function Index(props) {
             </div>
          
 
-            <ModalClient typeOpen={typeOpen} show={modalShowClient} edit={edit} dataEdit={dataEdit.data} onHide={() => setModalShowClient(false)}/>
-            <ModalCP typeOpen={typeOpen} show={modalShowCP} onHide={() => setModalShowCP(false)}/>
-            <ModalOffice typeOpen={typeOpen} show={modalShowOffice} onHide={() => setModalShowOffice(false)}/>
+            <ModalClient typeOpen={typeOpen} show={modalShowClient} dataEdit={dataEdit.data} onHide={() => setModalShowClient(false)}/>
+            <ModalCP     typeOpen={typeOpen} show={modalShowCP}     dataEdit={dataEdit.data} onHide={() => setModalShowCP(false)}/>
+            <ModalOffice typeOpen={typeOpen} show={modalShowOffice} dataEdit={dataEdit.data} onHide={() => setModalShowOffice(false)}/>
 
 
     </div>    

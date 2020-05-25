@@ -7,34 +7,44 @@ function ModalOffice(props) {
     const [stateOffice, setStateOffice] = useState('')
     const [addressOffice, setAddressOffice] = useState('')
     const [numberPositionOffice, setNumberPositionOffice] = useState('')
-    const [datas, setDatas] = useState({
-        dataFull:{
-            neighborhood:'',
-            state:'',
-            number_position:0,
-            address:''
-        }
-    })
-
+    const [up, setUp] = useState(0)
+    
     useEffect(() => {
-        setDatas({
-            dataFull:{
-                neighborhood:neigthborhoodOffice,
-                state:stateOffice,
-                number_position:numberPositionOffice,
-                address:addressOffice
-            }
-        })
-    }, [neigthborhoodOffice, stateOffice, numberPositionOffice, addressOffice])
+      if(props.dataEdit){
+        if(up === 0){
+          //console.log(props.dataEdit)
+          setNeigthborhoodOffice(props.dataEdit.neighborhood)
+          setStateOffice(props.dataEdit.state)
+          setAddressOffice(props.dataEdit.address)
+          setNumberPositionOffice(props.dataEdit.number_position)
+        }
+        setUp(1)
+      }
+    }, [up, props.dataEdit])
 
 
     function saveData(){
-        api.post('/office', datas.dataFull).then(res =>console.log(res.status))
-        setNeigthborhoodOffice('')
-        setStateOffice('')
-        setAddressOffice('')
-        setNumberPositionOffice(0)
-        props.onHide()
+      if(props.dataEdit){
+        api.patch('/office/'+props.dataEdit.id, {
+          neighborhood:neigthborhoodOffice,
+          state:stateOffice,
+          number_position:numberPositionOffice,
+          address:addressOffice
+        }).then(res =>console.log(res.status))
+
+      }else{
+        api.post('/office', {
+          neighborhood:neigthborhoodOffice,
+          state:stateOffice,
+          number_position:numberPositionOffice,
+          address:addressOffice
+        }).then(res =>console.log(res.status))
+      }
+      setNeigthborhoodOffice('')
+      setStateOffice('')
+      setAddressOffice('')
+      setNumberPositionOffice(0)
+      props.onHide()
     }
 
 
@@ -54,21 +64,21 @@ function ModalOffice(props) {
           <Row>
               <Col>
                 <label>Bairro:<br/>
-                <input value={datas.dataFull.neighborhood} type="text" onChange={(event) => setNeigthborhoodOffice(event.target.value)} /></label>
+                <input value={neigthborhoodOffice} type="text" onChange={(event) => setNeigthborhoodOffice(event.target.value)} /></label>
               </Col>
               <Col>
                 <label>Estado:<br/>
-                <input value={datas.dataFull.state} type="text" onChange={(event) => setStateOffice(event.target.value)} /></label>
+                <input value={stateOffice} type="text" onChange={(event) => setStateOffice(event.target.value)} /></label>
               </Col>
           </Row>
           <Row>
               <Col>
                 <label>Posições no coworking:<br/>
-                <input value={datas.dataFull.number_position} type="number" onChange={(event) => setNumberPositionOffice(event.target.value)} /></label>
+                <input value={numberPositionOffice} type="number" onChange={(event) => setNumberPositionOffice(event.target.value)} /></label>
               </Col>
               <Col>
                 <label>Enderço:<br/>
-                <input value={datas.dataFull.address} type="text" onChange={(event) => setAddressOffice(event.target.value)} /></label>
+                <input value={addressOffice} type="text" onChange={(event) => setAddressOffice(event.target.value)} /></label>
               </Col>
           </Row>
 
