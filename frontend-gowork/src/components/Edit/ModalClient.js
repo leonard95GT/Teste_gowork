@@ -4,7 +4,7 @@ import api from '../services/api'
 
 function ModalClient(props) {
 
-  const [nameClient, setNameClient] = useState('')
+  const [nameClient, setNameClient] = useState(props.dataEdit.name)
   const [typeUserClient, settypeUserClient] = useState('cnpj')
   const [federalNumber, setFederalNumber] = useState(0)
   const [officeId, setOfficeId] = useState(0)
@@ -18,43 +18,25 @@ function ModalClient(props) {
   })
 
   const [up, setUp]=useState(0)
-  const [upTwo, setUpTwo]=useState(0)
-
-
 
   function saveData(){
-
-    if(props.dataEdit){
-      api.patch('/client/'+props.dataEdit.id, {
-        name:nameClient,
-        typeUser:typeUserClient,
-        federal_number:federalNumber,
-        office_id:officeId,
-        coworking_plan_id:coworkingPlanId,
-      }).then(res =>console.log(res.status))
-      
-    }else{
-      api.post('/client', {
-        name:nameClient,
-        typeUser:typeUserClient,
-        federal_number:federalNumber,
-        office_id:officeId,
-        coworking_plan_id:coworkingPlanId,
-      }).then(res =>console.log(res.status))
-  
-    }   
+    api.post('/client', {
+      name:nameClient,
+      typeUser:typeUserClient,
+      federal_number:federalNumber,
+      office_id:officeId,
+      coworking_plan_id:coworkingPlanId,
+    }).then(res =>console.log(res.status))
+   
     setNameClient('')
     setFederalNumber('')
     setOfficeId(0)
     setCoworkingPlanId(0)
-    setUp(0)
-    setUpTwo(0)    
     props.onHide()
   }
-
-  
   
   useEffect(() => {
+    
     if(up === 0){
         api.get('/office').then(res => {
           setOffice({
@@ -69,18 +51,8 @@ function ModalClient(props) {
        })
       setUp(1)
     }
-
-    if(props.dataEdit){
-      if(upTwo === 0){
-        setNameClient(props.dataEdit.name)
-        setFederalNumber(props.dataEdit.federal_number)
-        setOfficeId(props.dataEdit.office_id)
-        setCoworkingPlanId(props.dataEdit.coworking_plan_id)
-      }
-      setUpTwo(1)
-    }
     
-  }, [up, upTwo, props.dataEdit])
+  }, [props.show,nameClient, typeUserClient, federalNumber, officeId, coworkingPlanId, Office, CoworkingPlan, props.edit, up])
 
 
     return (

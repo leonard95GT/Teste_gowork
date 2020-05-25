@@ -9,8 +9,6 @@ import ModalClient from '../../components/ModalClient'
 import ModalCP from '../../components/ModalCP'
 import ModalOffice from '../../components/ModalOffice'
 
-
-
 function Index(props) {
     const [data, setData] = useState({
         coworking_plan:[],
@@ -19,10 +17,13 @@ function Index(props) {
     })
 
     const [typeOpen, setTypeOpen] = useState(1)
-
     const [modalShowClient, setModalShowClient] = useState(false);
     const [modalShowCP, setModalShowCP] = useState(false);
     const [modalShowOffice, setModalShowOffice] = useState(false);
+    const [edit,  setEdit] = useState(0)
+    const [dataEdit, setDataEdit] = useState({
+        data:''
+    })
 
     useEffect(() => {   
         Promise.all([api.get('/office'), api.get('/coworking-plan'), api.get('/client')]).then(function ([p1, p2, p3]) {
@@ -35,17 +36,19 @@ function Index(props) {
     }, [data])
 
    function handleEdit(data, type) {
-    setTypeOpen(0)
+        setDataEdit({
+            data:data
+        })
+        setEdit(1)
+        setTypeOpen(0)
 
-    if(type === 1){
-        setModalShowClient(true)
-        //props.history.push('/editOffice', data)
-    }else if(type === 2){
-        setModalShowCP(true)
-        //props.history.push('/editCoworking-plan', data)
-    }else if(type === 3){
-        props.history.push('/editClient', data)    
-    }
+        if(type === 3){
+            setModalShowClient(true)
+        }else if(type === 2){
+            setModalShowCP(true)
+        }else if(type === 1){
+            setModalShowOffice(true)
+        }
    }
 
    function handleDelete(data, type){
@@ -58,7 +61,18 @@ function Index(props) {
         }
    }
 
+   function handleCreate(type){
+        setEdit(0)
+        setTypeOpen(1)
 
+        if(type === 3){
+            setModalShowClient(true)
+        }else if(type === 2){
+            setModalShowCP(true)
+        }else if(type === 1){
+            setModalShowOffice(true)
+        }
+   }
    
 
     
@@ -69,14 +83,9 @@ function Index(props) {
             </div>
             <div>
                 <div id = "divButton">
-                    {/* <button className="button" onClick={() => props.history.push('/editClient')}> <img className="add" src={ImgAdd} />  Cliente</button>
-                    <button className="button" onClick={() => props.history.push('/editCoworking-plan')}><img className="add" src={ImgAdd} /> Plano de Coworking</button>
-                    <button className="button" onClick={() => props.history.push('/editOffice')}><img className="add" src={ImgAdd} /> Escritórios</button> */}
-
-                    <button className="button" onClick={() => setModalShowClient(true)} > <img className="add" src={ImgAdd} />  Cliente</button>
-                    <button className="button" onClick={() => setModalShowCP(true)}>      <img className="add" src={ImgAdd} /> Plano de Coworking</button>
-                    <button className="button" onClick={() => setModalShowOffice(true)}><img className="add" src={ImgAdd} /> Escritórios</button>
-
+                    <button className="button" onClick={() => handleCreate(3)} > <img className="add" src={ImgAdd} alt="svgAdd" />  Cliente</button>
+                    <button className="button" onClick={() => handleCreate(2)}>      <img className="add" src={ImgAdd} alt="svgAdd" /> Plano de Coworking</button>
+                    <button className="button" onClick={() => handleCreate(1)}><img className="add" src={ImgAdd} alt="svgAdd" /> Escritórios</button>
                 </div>
             </div>
             <div id="divCenter">
@@ -187,7 +196,7 @@ function Index(props) {
             </div>
          
 
-            <ModalClient typeOpen={typeOpen} show={modalShowClient} onHide={() => setModalShowClient(false)}/>
+            <ModalClient typeOpen={typeOpen} show={modalShowClient} edit={edit} dataEdit={dataEdit.data} onHide={() => setModalShowClient(false)}/>
             <ModalCP typeOpen={typeOpen} show={modalShowCP} onHide={() => setModalShowCP(false)}/>
             <ModalOffice typeOpen={typeOpen} show={modalShowOffice} onHide={() => setModalShowOffice(false)}/>
 
