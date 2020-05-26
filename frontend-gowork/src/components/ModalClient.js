@@ -17,6 +17,8 @@ function ModalClient(props) {
     data:[]
   })
 
+  
+
   const [up, setUp]=useState(0)
   const [upTwo, setUpTwo]=useState(0)
 
@@ -35,8 +37,11 @@ function ModalClient(props) {
         office_id:officeId,
         coworking_plan_id:coworkingPlanId,
       }).then(res =>console.log(res.status))
+      setUpTwo(0)
+      console.log('tem q mudar aqui' + upTwo)
       
     }else{
+      console.log(officeId)
       api.post('/client', {
         name:nameClient,
         typeUser:typeUserClient,
@@ -51,7 +56,7 @@ function ModalClient(props) {
     setOfficeId(0)
     setCoworkingPlanId(0)
     setUpTwo(0)
-    console.log(nameClient)  
+    console.log(upTwo)  
     props.onHide()
   }
 
@@ -75,7 +80,9 @@ function ModalClient(props) {
 
     if(props.dataEdit){
       console.log(props.dataEdit)
+      //console.log(upTwo)
       if(upTwo === 0){
+        console.log('funcionou')
         setNameClient(props.dataEdit.name)
         setFederalNumber(props.dataEdit.federal_number)
         setOfficeId(props.dataEdit.office_id)

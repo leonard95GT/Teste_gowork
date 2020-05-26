@@ -10,9 +10,10 @@ function ModalOffice(props) {
     const [up, setUp] = useState(0)
     
     useEffect(() => {
+      //console.log("Up atualizando" +up)
+
       if(props.dataEdit){
         if(up === 0){
-          //console.log(props.dataEdit)
           setNeigthborhoodOffice(props.dataEdit.neighborhood)
           setStateOffice(props.dataEdit.state)
           setAddressOffice(props.dataEdit.address)
@@ -22,7 +23,6 @@ function ModalOffice(props) {
       }
     }, [up, props.dataEdit])
 
-
     function saveData(){
       if(props.dataEdit){
         api.patch('/office/'+props.dataEdit.id, {
@@ -30,7 +30,11 @@ function ModalOffice(props) {
           state:stateOffice,
           number_position:numberPositionOffice,
           address:addressOffice
-        }).then(res =>console.log(res.status))
+        }).then(res =>{
+          console.log(res.status)
+          setUp(0)
+          console.log("Up"+up)
+        })
 
       }else{
         api.post('/office', {
@@ -38,7 +42,12 @@ function ModalOffice(props) {
           state:stateOffice,
           number_position:numberPositionOffice,
           address:addressOffice
-        }).then(res =>console.log(res.status))
+        }).then(res =>{
+          console.log(res.status)
+          setUp(0)
+          console.log("Up"+up)
+
+        })
       }
       setNeigthborhoodOffice('')
       setStateOffice('')

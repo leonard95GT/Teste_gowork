@@ -30,16 +30,16 @@ class CoworkingPlanController extends Controller
     }
 
 
-    public function search(Request $request)
+    public function search(Request $request, $id)
     {
-        $result = Coworking_plan::find($request->id);
+        $result = Coworking_plan::find($id);
         return $result;
     }
 
 
-    public function update(Request $request, Coworking_plan $coworking_plan)
+    public function update(Request $request, $id)
     {
-        $cp = Coworking_plan::find($request->id);
+        $cp = Coworking_plan::find($id);
 
         $cp->name = $request->name;
         $cp->value = $request->value;
@@ -50,7 +50,7 @@ class CoworkingPlanController extends Controller
     }
 
 
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
         $cp = Coworking_plan::find($request->id);
         $cp->delete();
