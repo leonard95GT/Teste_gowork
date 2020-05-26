@@ -5,8 +5,8 @@ import api from '../services/api'
 function ModalClient(props) {
 
   const [nameClient, setNameClient] = useState('')
-  const [typeUserClient, settypeUserClient] = useState(0)
-  const [federalNumber, setFederalNumber] = useState(0)
+  const [typeUserClient, settypeUserClient] = useState('cnpj')
+  const [federalNumber, setFederalNumber] = useState()
   const [officeId, setOfficeId] = useState(0)
   const [coworkingPlanId, setCoworkingPlanId] = useState(0)
 
@@ -17,42 +17,50 @@ function ModalClient(props) {
     data:[]
   })
 
-  const [up, setUp]=useState(0)
-
-  let a = []
-  let b = []
-
-  const [datas, setDatas] = useState({
-    dataFull:{
-        name:'',
-        typeUser:'cnpj',
-        federal_number:'',
-        office_id:0,
-        coworking_plan_id:0,
-        active:true
-    }
-  })
-
   
 
+  const [up, setUp]=useState(0)
+  const [upTwo, setUpTwo]=useState(0)
+
+
+
   function saveData(){
-    api.post('/client', datas.dataFull).then(res =>console.log(res.status))
-    setDatas({
-      dataFull:{
-        name:'',
-        typeUser:'cnpj',
-        federal_number:'',
-        office_id:0,
-        coworking_plan_id:0,
-        active:true
-      }
-    })
+    if(nameClient === ''){
+      alert('Preencha todos os campos para continuar')
+    }
+
+    if(props.dataEdit){
+      api.patch('/client/'+props.dataEdit.id, {
+        name:nameClient,
+        typeUser:typeUserClient,
+        federal_number:federalNumber,
+        office_id:officeId,
+        coworking_plan_id:coworkingPlanId,
+      }).then(res =>console.log(res.status))
+      setUpTwo(0)
+      console.log('tem q mudar aqui' + upTwo)
+      
+    }else{
+      console.log(officeId)
+      api.post('/client', {
+        name:nameClient,
+        typeUser:typeUserClient,
+        federal_number:federalNumber,
+        office_id:officeId,
+        coworking_plan_id:coworkingPlanId,
+      }).then(res =>console.log(res.status))
+  
+    }   
     setNameClient('')
     setFederalNumber('')
     setOfficeId(0)
     setCoworkingPlanId(0)
+    setUpTwo(0)
+    console.log(upTwo)  
     props.onHide()
   }
+
+  
   
   useEffect(() => {
     if(up === 0){
@@ -67,25 +75,23 @@ function ModalClient(props) {
             data:res.data
           })
        })
-
-        setUp(1)
-        console.log(a)
+      setUp(1)
     }
 
-    if(props.show === false){
-           
+    if(props.dataEdit){
+      console.log(props.dataEdit)
+      //console.log(upTwo)
+      if(upTwo === 0){
+        console.log('funcionou')
+        setNameClient(props.dataEdit.name)
+        setFederalNumber(props.dataEdit.federal_number)
+        setOfficeId(props.dataEdit.office_id)
+        setCoworkingPlanId(props.dataEdit.coworking_plan_id)
+      }
+      setUpTwo(1)
     }
-
-    setDatas({
-        dataFull:{
-            name:nameClient,
-            typeUser:typeUserClient,
-            federal_number:federalNumber,
-            office_id:officeId,
-            coworking_plan_id:coworkingPlanId,
-        }
-    })
-  }, [props.show,nameClient, typeUserClient, federalNumber, officeId, coworkingPlanId, Office, CoworkingPlan])
+    
+  }, [up, upTwo, props.dataEdit])
 
 
     return (
@@ -102,9 +108,9 @@ function ModalClient(props) {
       </Modal.Header>
       <Modal.Body>
         <Row>
-          <Col>
+          <Col sm={4}>
             <label>Nome:<br/>
-            <input value={datas.dataFull.name} type="text" onChange={(e) => setNameClient(e.target.value)} /></label>
+            <input value={nameClient} type="text" onChange={(e) => setNameClient(e.target.value)} /></label>
           </Col>
           <Col>
             <label>Tipo de Usuário:<br/>
@@ -115,15 +121,15 @@ function ModalClient(props) {
             </label>
 
           </Col>
-          <Col>
-            <label>Número de Inscrição (CNPJ / CPF):<br/>
-            <input value={datas.dataFull.federal_number} type="text" onChange={(e) => setFederalNumber(e.target.value)} /></label>
+          <Col sm={4}>
+            <label>CNPJ / CPF:<br/>
+            <input value={federalNumber} type="number" onChange={(e) => setFederalNumber(e.target.value)} /></label>
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col sm={4}>
             <label>Escritório:<br/>
-              <select onChange={(e) => setOfficeId(e.target.value)}>
+              <select value={officeId} onChange={(e) => setOfficeId(e.target.value)}>
                 {Office.data.map((d, i) => (
                   <option key={i} value={d.id}>{d.neighborhood}</option>
                 ))}
@@ -133,9 +139,9 @@ function ModalClient(props) {
 
           </Col>
 
-          <Col>
+          <Col sm={4}>
             <label>Plano de Coworking:<br/>
-              <select onChange={(e) => setCoworkingPlanId(e.target.value)}>
+              <select value={coworkingPlanId} onChange={(e) => setCoworkingPlanId(e.target.value)}>
                 {CoworkingPlan.data.map((d, i) => (
                   <option key={i} value={d.id}>{d.name}</option>
                 ))}

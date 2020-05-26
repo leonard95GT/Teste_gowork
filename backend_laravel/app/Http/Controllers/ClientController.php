@@ -33,17 +33,17 @@ class ClientController extends Controller
     }
 
 
-    public function show(Request $request)
+    public function show(Request $request, $id)
     {
-        $result = Client::find($request->id);
+        $result = Client::find($id);
         return $result;
 
     }
 
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $client = Client::find($request->id);
+        $client = Client::find($id);
 
         $client->typeUser = $request->typeUser;
         $client->name = $request->name;
@@ -58,9 +58,9 @@ class ClientController extends Controller
     }
 
 
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $result = Client::find($request->id);
+        $result = Client::find($id);
         $result->delete();
 
         return 'deleted';

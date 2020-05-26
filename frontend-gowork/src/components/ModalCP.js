@@ -5,36 +5,38 @@ import api from '../services/api'
 function ModalCP(props) {
     //let data = (props.location.state)
     const [nameCP, setNameCP] = useState('')
-    const [valueCP, setValueCP] = useState(0)
-
-
-    const [datas, setDatas] = useState({
-        dataFull:{
-            name:'',
-            value:0
-        }
-    })
-
-    // if (data != null){
-    //     console.log('Dados')
-    // }else{
-    //     console.log("Não dados")
-    // }
+    const [valueCP, setValueCP] = useState()
+    
+    const [up, setUp]=useState(0)
 
     useEffect(() => {
-        setDatas({
-            dataFull:{
-                name:nameCP,
-                value:valueCP
-                }
-        })
-    }, [nameCP, valueCP])
+        if(props.dataEdit){
+            if(up === 0){
+              setNameCP(props.dataEdit.name)
+              setValueCP(props.dataEdit.value)
+            }
+            setUp(1)
+          }
+    }, [up, props.dataEdit])
 
 
     function saveData(){
-        api.post('/coworking-plan', datas.dataFull).then(res =>console.log(res.status))
+        if(props.dataEdit){
+            api.patch('/coworking-plan/'+props.dataEdit.id, {
+                name:nameCP,
+                value:valueCP
+            }).then(res =>console.log(res.status))
+        
+        }else{
+            api.post('/coworking-plan', {
+                name:nameCP,
+                value:valueCP
+            }).then(res =>console.log(res.status))
+    
+        }
         setNameCP('')
         setValueCP(0)
+        setUp(0)
         props.onHide()
     }
 
@@ -55,11 +57,11 @@ function ModalCP(props) {
             <Row>
                 <Col>
                     <label>Nome do Plano:<br/>
-                    <input value={datas.dataFull.name} type="text" onChange={(e) => setNameCP(e.target.value)} /></label>
+                    <input value={nameCP} type="text" onChange={(e) => setNameCP(e.target.value)} /></label>
                 </Col>
                 <Col>
                     <label>Valor:<br/>
-                    <input value={datas.dataFull.value} type="number" onChange={(e) => setValueCP(e.target.value)} /></label>
+                    <input value={valueCP} type="number" onChange={(e) => setValueCP(e.target.value)} /></label>
                 </Col>
             </Row>
         </Modal.Body>

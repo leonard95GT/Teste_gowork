@@ -32,17 +32,17 @@ class OfficeController extends Controller
     }
 
 
-    public function search(Office $office, Request $request)
+    public function search($id, Request $request)
     {
-        $result = Office::find($request->id);
+        $result = Office::find($id);
         return $result;
 
+    }
 
-
-    public function update(Request $request, Office $office)
+    public function update(Request $request, $id)
     {
 
-        $result = Office::find($request->id);
+        $result = Office::find($id);
 
         $result->address = $request->address;
         $result->state = $request->state;
@@ -55,7 +55,7 @@ class OfficeController extends Controller
 
     }
 
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
         $result = Office::find($request->id);
         $result->delete();
